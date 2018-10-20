@@ -14,17 +14,18 @@
 
 
 version: 2
-tagged-build:
-  jobs:
-    build:
-      docker:
-        - image: circleci/node:stretch
-      steps:
-        - checkout
-        - run:
-            name: example run 
-            command: |
-              cp release.txt release_circle_linux.txt
-              wget https://github.com/tcnksm/ghr/releases/download/v0.12.0/ghr_v0.12.0_linux_amd64.tar.gz
-              tar xzvf ghr_v0.12.0_linux_amd64.tar.gz
-              ./ghr_v0.12.0_linux_amd64/ghr -t ${GITHUB_TOKEN} -u akashche -r example-ci-releases -c ${CIRCLE_SHA1} ${CIRCLE_TAG} release_circle_linux.txt
+jobs:
+  build:
+    docker:
+      - image: circleci/node:stretch
+    steps:
+      - checkout
+      - run:
+          name: example run 
+          command: |
+            cp release.txt release_circle_linux.txt
+            if [ "x${CIRCLE_TAG}" != x ] ; then
+                wget https://github.com/tcnksm/ghr/releases/download/v0.12.0/ghr_v0.12.0_linux_amd64.tar.gz
+                tar xzvf ghr_v0.12.0_linux_amd64.tar.gz
+                ./ghr_v0.12.0_linux_amd64/ghr -t ${GITHUB_TOKEN} -u akashche -r example-ci-releases -c ${CIRCLE_SHA1} ${CIRCLE_TAG} release_circle_linux.txt
+            fi
