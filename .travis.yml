@@ -19,7 +19,7 @@ os:
   - osx
 
 script:
-  - cp release.txt release_${TRAVIS_OS_NAME}.txt
+  - cp release.txt release_travis_${TRAVIS_OS_NAME}.txt
 
 deploy:
   provider: releases
@@ -27,7 +27,7 @@ deploy:
   api_key:
     secure: JEWGFcYTjODIGAMXaAkVealadm3IixMnwCiHZisTxkylRpbMZfFGE/XUQJC5wpLGnBjlOaUry1J2jjVhOSAv3VL0kueYdMFrIS0pRxupMzYVDTN/IvlNx0MvhnIlZxM3Z0cQTrlE3FRuf9EtcjWNywm3+1+HQtG5n/kwMj06jxq6sx493E2SBc34QXWg8ebyoyFEOPi4KFmKRRStFHlIiMa4H/Xk1CrVZzGdV7CF/o35RcMLDwQafnqbDnEITRPANog5h7x97OpCldHq9/NcobJ2M0deHJqM3dwO7YRVTToZ6UIfCwMv0xx9k6cVmWgKb1NBPNVqoU4V7ggVXGSq150J5V8eEQdVQVwA8vmRIcatCz9srYb5hOdPTsUigReF0zHG4D7FaBK8LQ+iwcKHbGiHiKVbWCQNMgSFnusZ3SV2AA3qAXAEkWewlxcHhxjUFcrjKXTZDIUfvCJLI8xWsnQZyAJtjTVxE5wP6jmnEjVZtXRRPJbJbWwl1wKmfQpxcn6tlg+hM2SMPnBhK4wuDGo/q5XJv0AVQFDQ+l+8ce8uHN6EgzURLpdg1YL0F7uUqrkdGPrXa4Hd0o8if/kxndnhZmEBI0+H88zQtMLJ0f7giO4Xr6b0b7WY1K76cWJfW51QXE3pgkIUJDbkwe2/7FRMi9EdS2DOJfPLr36DClY=
   file:
-    - release_${TRAVIS_OS_NAME}.txt
+    - release_travis_${TRAVIS_OS_NAME}.txt
   on:
     repo: akashche/example-ci-releases
     tags: true
