@@ -19,13 +19,9 @@ container:
 
 windows_container:
   image: cirrusci/windowsservercore:2016
-  cpu: 1
-  memory: 1
 
 osx_instance:
   image: high-sierra-xcode-9.4.1
-  cpu: 1
-  memory: 1
 
 task:
   script: echo "hello cirrus!"
