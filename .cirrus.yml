@@ -32,9 +32,17 @@ task:
 
   script: |
     cp release.txt release_cirrus_${CIRRUS_OS}.txt
-    if [ "x${CIRRUS_TAG}" != x ] ; then
-        curl -LO https://github.com/tcnksm/ghr/releases/download/v0.12.0/ghr_v0.12.0_${CIRRUS_OS}_amd64.tar.gz
-        tar xzvf ghr_v0.12.0_${CIRRUS_OS}_amd64.tar.gz
-        ./ghr_v0.12.0_${CIRRUS_OS}_amd64/ghr -t ${GITHUB_TOKEN} -u akashche -r example-ci-releases -c ${CIRRUS_CHANGE_IN_REPO} ${CIRRUS_TAG} release_cirrus_${CIRRUS_OS}.txt
+    if [ "x${CIRRUS_TAG}" != "x" ] ; then
+        if [ "xlinux" = "x${CIRRUS_OS}" ] ; then
+            curl -LO https://github.com/tcnksm/ghr/releases/download/v0.12.0/ghr_v0.12.0_linux_amd64.tar.gz
+            tar xzvf ghr_v0.12.0_${CIRRUS_OS}_amd64.tar.gz
+            mv ghr_v0.12.0_linux_amd64 ghr
+        fi
+        if [ "xdarwin" = "x${CIRRUS_OS}" ] ; then
+            curl -LO https://github.com/tcnksm/ghr/releases/download/v0.12.0/ghr_v0.12.0_darwin_amd64.zip
+            unzip ghr_v0.12.0_darwin_amd64.zip
+            mv ghr_v0.12.0_darwin_amd64 ghr
+        fi
+        ./ghr/ghr -t ${GITHUB_TOKEN} -u akashche -r example-ci-releases -c ${CIRRUS_CHANGE_IN_REPO} ${CIRRUS_TAG} release_cirrus_${CIRRUS_OS}.txt
     fi
 
