@@ -20,20 +20,22 @@ build: off
 
 build_script:
   - cmd: set POSTFIX=windows
-  - cmd: echo f | xcopy release.txt release_%POSTFIX%.txt
+  - cmd: echo f | xcopy release.txt release_appveyor_%POSTFIX%.txt
+
+  - sh: export appveyor_repo_tag=${APPVEYOR_REPO_TAG}
   - sh: export POSTFIX=linux
-  - sh: cp release.txt release_${POSTFIX}.txt
+  - sh: cp release.txt release_appveyor_${POSTFIX}.txt
 
 artifacts:
-  - path: 'release_%POSTFIX%.txt'
-    name: 'release_%POSTFIX%.txt'
+  - path: 'release_appveyor_%POSTFIX%.txt'
+    name: 'release_appveyor_%POSTFIX%.txt'
 
 deploy:
   description: '%APPVEYOR_REPO_TAG_NAME%'
   provider: GitHub
   auth_token:
     secure: uQmONoQt5gmD22HrZemcjG5ZQNaKwehwFV0tm0wBwo0Zuv9dNntyhmLsK8mt/gBi
-  artifact: 'release_%POSTFIX%.txt'
+  artifact: 'release_appveyor_%POSTFIX%.txt'
   force_update: true
   draft: false
   prerelease: false
