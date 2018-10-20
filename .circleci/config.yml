@@ -30,30 +30,11 @@ jobs:
                 ./ghr_v0.12.0_linux_amd64/ghr -t ${GITHUB_TOKEN} -u akashche -r example-ci-releases -c ${CIRCLE_SHA1} ${CIRCLE_TAG} release_circle_linux.txt
             fi
 
-  mac:
-    macos:
-      xcode: "9.0"
-    steps:
-      - checkout
-      - run:
-          name: mac run 
-          command: |
-            cp release.txt release_circle_mac.txt
-            if [ "x${CIRCLE_TAG}" != x ] ; then
-                curl -LO https://github.com/tcnksm/ghr/releases/download/v0.12.0/ghr_v0.12.0_darwin_amd64.zip
-                tar xzvf ghr_v0.12.0_darwin_amd64.tar.gz
-                ./ghr_v0.12.0_darwin_amd64/ghr -t ${GITHUB_TOKEN} -u akashche -r example-ci-releases -c ${CIRCLE_SHA1} ${CIRCLE_TAG} release_circle_mac.txt
-            fi
-
 workflows:
   version: 2
   linux_and_mac:
     jobs:
       - linux:
-          filters:
-            tags:
-              only: /.*/
-      - mac:
           filters:
             tags:
               only: /.*/
