@@ -12,16 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-container:
-  image: openjdk:8-jdk
-  cpu: 1
-  memory: 1
-
-windows_container:
-  image: cirrusci/windowsservercore:2016
-
-osx_instance:
-  image: high-sierra-xcode-9.4.1
 
 task:
+  matrix:
+
+    container:
+      image: openjdk:8-jdk
+      cpu: 1
+      memory: 1
+
+    windows_container:
+      image: cirrusci/windowsservercore:2016
+
+    osx_instance:
+      image: high-sierra-xcode-9.4.1
+
   script: echo "hello cirrus!"
