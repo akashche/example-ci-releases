@@ -27,11 +27,14 @@ task:
     osx_instance:
       image: high-sierra-xcode-9.4.1
 
+  environment:
+    GITHUB_TOKEN: ENCRYPTED[fc2d92a8d5aa1d071f90e478de68cf4329d352a41e634736daff116c6362379e362b77e254c8a0fb4fe3a9b755bdc1c8]
+
   script: |
     cp release.txt release_cirrus_${CIRRUS_OS}.txt
     if [ "x${CIRRUS_TAG}" != x ] ; then
         curl -LO https://github.com/tcnksm/ghr/releases/download/v0.12.0/ghr_v0.12.0_${CIRRUS_OS}_amd64.tar.gz
         tar xzvf ghr_v0.12.0_${CIRRUS_OS}_amd64.tar.gz
-        ./ghr_v0.12.0_${CIRRUS_OS}_amd64/ghr -t ENCRYPTED[fc2d92a8d5aa1d071f90e478de68cf4329d352a41e634736daff116c6362379e362b77e254c8a0fb4fe3a9b755bdc1c8] -u akashche -r example-ci-releases -c ${CIRRUS_CHANGE_IN_REPO} ${CIRRUS_TAG} release_cirrus_${CIRRUS_OS}.txt
+        ./ghr_v0.12.0_${CIRRUS_OS}_amd64/ghr -t ${GITHUB_TOKEN} -u akashche -r example-ci-releases -c ${CIRRUS_CHANGE_IN_REPO} ${CIRRUS_TAG} release_cirrus_${CIRRUS_OS}.txt
     fi
 
