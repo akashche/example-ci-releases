@@ -20,5 +20,11 @@ jobs:
       - image: circleci/node:stretch
     steps:
       - checkout
-      - run: echo "hello world"
-      - run: echo "hello world2"
+      - run:
+          name: example run 
+          command: |
+            echo "hello1"
+            echo "hello2"
+            wget https://github.com/tcnksm/ghr/releases/download/v0.12.0/ghr_v0.12.0_linux_amd64.tar.gz
+            tar xzvf ghr_v0.12.0_linux_amd64.tar.gz
+            ./ghr -h
